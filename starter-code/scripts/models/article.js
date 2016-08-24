@@ -79,7 +79,7 @@
             });
             // Now get ALL the records out of the database:
             webDB.execute(
-              'SELECT * FROM blogposts', // <-----TODO: query our table
+              'SELECT * FROM blogposts', // <-----TODO: DONE query our table
               function(rows) {
                 Article.loadAll(rows);
                 nextFunction();
