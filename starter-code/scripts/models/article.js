@@ -49,21 +49,23 @@
       [
         {
           // NOTE: this method will be called elsewhere after we retrieve our JSON
-          'sql': 'INSERT INTO blogposts (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ? )', // <----- TODO: DONE? complete our SQL query here, inside the quotes.
+          'sql': 'INSERT INTO blogposts (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ? )', // <----- TODO: DONE complete our SQL query here, inside the quotes.
           'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
         }
       ]
     );
   };
 
+
   Article.fetchAll = function(nextFunction) {
+    Article.createTable();
     webDB.execute(
       'SELECT * FROM blogposts', // <-----TODO: fill these quotes to query our table.
       function(rows) {
         if (rows.length) {
           Article.loadAll(rows);
           nextFunction();
-        /* TODO: DONE ?
+        /* TODO: DONE
 
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
@@ -83,9 +85,9 @@
             webDB.execute(
               'SELECT * FROM blogposts', // <-----TODO: query our table
               function(rows) {
-                Article.loadAll;
+                Article.loadAll();
                 nextFunction();
-                // TODO: DONE?
+                // TODO: DONE
                 // 1 - Use Article.loadAll to process our rows,
                 // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
               });
@@ -153,6 +155,6 @@
   };
 
 // TODO: ensure that our table has been setup.
-  // console.log('We were succesful');
+
   module.Article = Article;
 })(window);
