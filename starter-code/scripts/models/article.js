@@ -25,7 +25,7 @@
         + 'category VARCHAR,'
         + 'author VARCHAR,'
         + 'authorUrl VARCHAR,'
-        + 'publishedOn INTEGER,'
+        + 'publishedOn VARCHAR,'
         + 'body VARCHAR);',
       // TODO: DONE What SQL command do we run here inside these quotes?
       function() {
@@ -46,7 +46,16 @@
       [
         {
           // NOTE: this method will be called elsewhere after we retrieve our JSON
-          'sql': '', // <----- TODO: complete our SQL query here, inside the quotes.
+          'sql': 'INSERT INTO articles ('
+          + 'id,'
+          + 'title,'
+          + 'category,'
+          + 'author,'
+          + 'authorUrl,'
+          + 'publishedOn,'
+          + 'body)'
+          + ' values ('
+          + '?, ?, ?, ?, ?, ?, ?);', // <----- TODO: DONE-ish complete our SQL query here, inside the quotes.
           'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
         }
       ]
@@ -143,6 +152,7 @@
 
 // TODO: ensure that our table has been setup.
   Article.createTable();
+  Article.insertRecord();
 
   module.Article = Article;
 })(window);
