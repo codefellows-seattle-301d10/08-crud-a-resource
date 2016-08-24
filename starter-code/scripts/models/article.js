@@ -47,7 +47,6 @@
         {
           // NOTE: this method will be called elsewhere after we retrieve our JSON
           'sql': 'INSERT INTO articles ('
-          + 'id,'
           + 'title,'
           + 'category,'
           + 'author,'
@@ -55,7 +54,7 @@
           + 'publishedOn,'
           + 'body)'
           + ' values ('
-          + '?, ?, ?, ?, ?, ?, ?);', // <----- TODO: DONE-ish complete our SQL query here, inside the quotes.
+          + '?, ?, ?, ?, ?, ?);', // <----- TODO: DONE-ish complete our SQL query here, inside the quotes.
           'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
         }
       ]
@@ -67,7 +66,9 @@
       'SELECT * FROM articles', // <-----TODO: DONE fill these quotes to query our table.
       function(rows) {
         if (rows.length) {
-        /* TODO:
+          Article.loadAll(rows);
+          nextFunction();
+        /* TODO DONE:
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
                 was passed in to Article.fetchAll */
@@ -76,6 +77,7 @@
             responseData.forEach(function(obj) {
               var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
               /* TODO:
+
                1 - 'insert' the newly-instantiated article in the DB:
              */
             });
@@ -150,9 +152,8 @@
     });
   };
 
-// TODO: ensure that our table has been setup.
+// TODO: DONE ensure that our table has been setup.
   Article.createTable();
-  Article.insertRecord();
 
   module.Article = Article;
 })(window);
