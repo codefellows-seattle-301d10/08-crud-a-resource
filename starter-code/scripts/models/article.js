@@ -101,7 +101,7 @@
         {
           /* NOTE: this is an advanced admin option, so you will need to test
               out an individual query in the console */
-          'sql': 'DELETE FROM blogposts WHERE id = ?', // <---TODO: DONE??? Delete an article instance from the database based on its id:
+          'sql': 'DELETE FROM blogposts WHERE id = ?', // <---TODO: DONE Delete an article instance from the database based on its id:
           'data': [this.id]
         }
       ]
@@ -153,6 +153,6 @@
   };
 
 // TODO: ensure that our table has been setup.
-
+  // console.log('We were succesful');
   module.Article = Article;
 })(window);
