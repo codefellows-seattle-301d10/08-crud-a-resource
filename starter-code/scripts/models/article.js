@@ -64,7 +64,7 @@
 
   Article.fetchAll = function(nextFunction) {
     webDB.execute(
-      '', // <-----TODO: fill these quotes to query our table.
+      'SELECT * FROM articles', // <-----TODO: DONE fill these quotes to query our table.
       function(rows) {
         if (rows.length) {
         /* TODO:
