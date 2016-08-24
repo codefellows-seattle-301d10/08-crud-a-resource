@@ -75,11 +75,12 @@
             });
             // Now get ALL the records out of the database:
             webDB.execute(
-              '', // <-----TODO: query our table
+              'SELECT * FROM articles', // <-----TODO: query our table
               function(rows) {
                 // TODO:
                 // 1 - Use Article.loadAll to process our rows,
                 // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
+                Article.loadAll(nextFunction);
               });
           });
         }
@@ -93,7 +94,7 @@
         {
           /* NOTE: this is an advanced admin option, so you will need to test
               out an individual query in the console */
-          'sql': '', // <---TODO: Delete an article instance from the database based on its id:
+          'sql': 'DELETE FROM articles WHERE id = ' + this.id, // <---TODO: Delete an article instance from the database based on its id:
           'data': [this.id]
         }
       ]
@@ -145,6 +146,7 @@
   };
 
 // TODO: ensure that our table has been setup.
+
 
   module.Article = Article;
 })(window);
