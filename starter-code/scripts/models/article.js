@@ -59,7 +59,7 @@
       'SELECT * FROM articles', // <-----TODO: ** DONE ** fill these quotes to query our table.
       function(rows) {
         if (rows.length) {
-        /* TODO:
+        /* TODO: ** DONE **
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
                 was passed in to Article.fetchAll */
@@ -70,15 +70,15 @@
           $.getJSON('/data/hackerIpsum.json', function(responseData) {
             responseData.forEach(function(obj) {
               var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
-              /* TODO:
+              /* TODO: ** DONE **
                1 - 'insert' the newly-instantiated article in the DB: */
               article.insertRecord();
             });
             // Now get ALL the records out of the database:
             webDB.execute(
-              'SELECT * FROM articles', // <-----TODO: query our table
+              'SELECT * FROM articles', // <-----TODO: ** DONE ** query our table
               function(rows) {
-                // TODO:
+                // TODO: ** DONE **
                 // 1 - Use Article.loadAll to process our rows,
                 // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
                 Article.loadAll(rows);
@@ -96,7 +96,7 @@
         {
           /* NOTE: this is an advanced admin option, so you will need to test
               out an individual query in the console */
-          'sql': 'DELETE FROM articles WHERE id = ?', // <---TODO: Delete an article instance from the database based on its id:
+          'sql': 'DELETE FROM articles WHERE id = ?', // <---TODO: ** DONE **Delete an article instance from the database based on its id:
           'data': [this.id]
         }
       ]
@@ -147,7 +147,7 @@
     });
   };
 
-// TODO: ensure that our table has been setup.
+// TODO: ** DONE ** ensure that our table has been setup.
 Article.createTable();
 
   module.Article = Article;
