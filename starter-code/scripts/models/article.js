@@ -62,7 +62,7 @@
       function(rows) {
         if (rows.length) {
           Article.loadAll(rows);
-          nextFunction()
+          nextFunction();
         /* TODO: DONE ?
 
            1 - Use Article.loadAll to instanitate these rows,
@@ -71,16 +71,21 @@
         } else {
           $.getJSON('/data/hackerIpsum.json', function(responseData) {
             responseData.forEach(function(obj) {
-              var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
+              var article = new Article(obj);
+              article.insertRecord();
+
+               // This will instantiate an article instance based on each article object from our JSON.
               /* TODO:
                1 - 'insert' the newly-instantiated article in the DB:
              */
             });
             // Now get ALL the records out of the database:
             webDB.execute(
-              '', // <-----TODO: query our table
+              'SELECT * FROM blogposts', // <-----TODO: query our table
               function(rows) {
-                // TODO:
+                Article.loadAll;
+                nextFunction();
+                // TODO: DONE?
                 // 1 - Use Article.loadAll to process our rows,
                 // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
               });
