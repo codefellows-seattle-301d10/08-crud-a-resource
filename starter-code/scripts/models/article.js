@@ -19,7 +19,7 @@
   // Set up a DB table for articles.
   Article.createTable = function() {
     webDB.execute(
-      'CREATE TABLE IF NOT EXISTS articles (' + 'id INTEGER PRIMARY KEY, ' + 'title VARCHAR, ' + 'category VARCHAR, ' + 'author VARCHAR, ' + 'authorUrl VARCHAR, ' + 'publishedOn VARCHAR, ' + 'body VARCHAR);', // TODO: DONE What SQL command do we run here inside these quotes?
+      'CREATE TABLE IF NOT EXISTS articles (' + 'id INTEGER PRIMARY KEY, ' + 'title VARCHAR, ' + 'category VARCHAR, ' + 'author VARCHAR, ' + 'authorUrl VARCHAR, ' + 'publishedOn VARCHAR, ' + 'body VARCHAR' + ');', // TODO: DONE What SQL command do we run here inside these quotes?
       function() {
         console.log('Successfully set up the articles table.');
       });
@@ -39,18 +39,20 @@
         {
           // NOTE: this method will be called elsewhere after we retrieve our JSON
           'sql': 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?);', // <----- TODO: DONE complete our SQL query here, inside the quotes.
-          'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
+          'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body],
         }
       ]
     );
   };
 
   Article.fetchAll = function(nextFunction) {
+    console.log(nextFunction);
     webDB.execute(
-      '', // <-----TODO: fill these quotes to query our table.
+      'SELECT * FROM articles', // <-----TODO: DONE fill these quotes to query our table.
       function(rows) {
         if (rows.length) {
-        /* TODO:
+          Article.loadAll(rows);
+        /* TODO: DONE
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
                 was passed in to Article.fetchAll */
@@ -58,17 +60,19 @@
           $.getJSON('/data/hackerIpsum.json', function(responseData) {
             responseData.forEach(function(obj) {
               var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
-              /* TODO:
+              /* TODO: DONE
                1 - 'insert' the newly-instantiated article in the DB:
              */
+              article.insertRecord();
             });
             // Now get ALL the records out of the database:
             webDB.execute(
-              '', // <-----TODO: query our table
+              'SELECT * FROM articles', // <-----TODO: DONE query our table
               function(rows) {
                 // TODO:
                 // 1 - Use Article.loadAll to process our rows,
                 // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
+                Article.loadAll(rows);
               });
           });
         }
