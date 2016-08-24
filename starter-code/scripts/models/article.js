@@ -55,28 +55,35 @@
 
   Article.fetchAll = function(nextFunction) {
     webDB.execute(
-      '', // <-----TODO: fill these quotes to query our table.
+      'SELECT * FROM hackerIpsum', // <-----TODO: fill these quotes to query our table.
       function(rows) {
         if (rows.length) {
-        /* TODO:
+        /* TODO- DONE:
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
                 was passed in to Article.fetchAll */
+          Article.loadAll();
+          nextFunction();
         } else {
           $.getJSON('/data/hackerIpsum.json', function(responseData) {
             responseData.forEach(function(obj) {
               var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
-              /* TODO:
+              /* TODO - DONE :
                1 - 'insert' the newly-instantiated article in the DB:
              */
+              Article.all.push(article);
+              article.insertRecord();
+
             });
             // Now get ALL the records out of the database:
             webDB.execute(
-              '', // <-----TODO: query our table
+              'SELECT * FROM hackerIpsum', // <-----TODO: query our table
               function(rows) {
-                // TODO:
+                // TODO - DONE:
                 // 1 - Use Article.loadAll to process our rows,
                 // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
+                Article.loadAll();
+                nextFunction();
               });
           });
         }
