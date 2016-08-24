@@ -8,4 +8,5 @@ var adminView = {
     $('#blog-stats .words').text(Article.numWordsAll());
   }
 };
+
 Article.fetchAll(adminView.render);
