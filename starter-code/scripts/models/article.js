@@ -99,7 +99,7 @@
 
   Article.clearTable = function() {
     webDB.execute(
-      'DELETE ...;' // <----TODO: delete all records from the articles table.
+      'DELETE FROM hackerIpsum;' // <----TODO: DONE - delete all records from the articles table.
     );
   };
 
