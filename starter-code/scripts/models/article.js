@@ -97,7 +97,7 @@
         {
           /* NOTE: this is an advanced admin option, so you will need to test
               out an individual query in the console */
-          'sql': '', // <---TODO: Delete an article instance from the database based on its id:
+          'sql': 'DELETE FROM hackerIpsum WHERE id = ?', // <---TODO: Delete an article instance from the database based on its id:
           'data': [this.id]
         }
       ]
