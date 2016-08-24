@@ -52,6 +52,7 @@
       function(rows) {
         if (rows.length) {
           Article.loadAll(rows);
+          nextFunction();
         /* TODO: DONE
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
@@ -73,6 +74,7 @@
                 // 1 - Use Article.loadAll to process our rows,
                 // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
                 Article.loadAll(rows);
+                nextFunction();
               });
           });
         }
@@ -95,7 +97,7 @@
 
   Article.clearTable = function() {
     webDB.execute(
-      'DELETE ...;' // <----TODO: delete all records from the articles table.
+      'DELETE * FROM articles;' // <----TODO:DONE delete all records from the articles table.
     );
   };
 
@@ -138,6 +140,7 @@
   };
 
 // TODO: ensure that our table has been setup.
+
 
   module.Article = Article;
 })(window);
