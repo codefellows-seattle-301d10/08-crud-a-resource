@@ -10,7 +10,7 @@
 
   Article.prototype.toHtml = function(scriptTemplateId) {
     var template = Handlebars.compile(scriptTemplateId.text());
-    this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
+    this.daysAgo = parseInt((new Date() - new Date(this.publishedOn)) / 60 / 60 / 24 / 1000);
     this.publishStatus = this.publishedOn ? 'published ' + this.daysAgo + ' days ago' : '(draft)';
     this.body = marked(this.body);
     return template(this);
@@ -19,7 +19,15 @@
   // Set up a DB table for articles.
   Article.createTable = function() {
     webDB.execute(
-      '', // TODO: What SQL command do we run here inside these quotes?
+      // TODO: ** DONE ** What SQL command do we run here inside these quotes?
+      'CREATE TABLE IF NOT EXISTS articles (' +
+      'id INTEGER PRIMARY KEY, ' +
+      'title VARCHAR, ' +
+      'category VARCHAR, ' +
+      'author VARCHAR, ' +
+      'authorUrl VARCHAR, ' +
+      'publishedOn DATE, ' +
+      'body VARCHAR);',
       function() {
         console.log('Successfully set up the articles table.');
       }
@@ -38,7 +46,8 @@
       [
         {
           // NOTE: this method will be called elsewhere after we retrieve our JSON
-          'sql': '', // <----- TODO: complete our SQL query here, inside the quotes.
+          // <----- TODO: ** DONE ** complete our SQL query here, inside the quotes.
+          'sql': 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?)',
           'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
         }
       ]
@@ -47,20 +56,22 @@
 
   Article.fetchAll = function(nextFunction) {
     webDB.execute(
-      '', // <-----TODO: fill these quotes to query our table.
+      'SELECT * FROM articles', // <-----TODO: ** DONE ** fill these quotes to query our table.
       function(rows) {
         if (rows.length) {
         /* TODO:
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
                 was passed in to Article.fetchAll */
+        Article.loadAll(nextFunction);
+
         } else {
           $.getJSON('/data/hackerIpsum.json', function(responseData) {
             responseData.forEach(function(obj) {
               var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
               /* TODO:
-               1 - 'insert' the newly-instantiated article in the DB:
-             */
+               1 - 'insert' the newly-instantiated article in the DB: */
+              Article.insertRecord(responseData);
             });
             // Now get ALL the records out of the database:
             webDB.execute(
@@ -91,7 +102,7 @@
 
   Article.clearTable = function() {
     webDB.execute(
-      'DELETE ...;' // <----TODO: delete all records from the articles table.
+      'DELETE * FROM articles;' // <----TODO: ** DONE ** delete all records from the articles table.
     );
   };
 
