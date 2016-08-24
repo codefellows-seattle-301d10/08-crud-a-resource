@@ -19,7 +19,15 @@
   // Set up a DB table for articles.
   Article.createTable = function() {
     webDB.execute(
-      '', // TODO: What SQL command do we run here inside these quotes?
+      // TODO: DONE - What SQL command do we run here inside these quotes?
+      'CREATE TABLE IF NOT EXISTS hackerIpsum (' +
+      'id INTEGER PRIMARY KEY,' +
+      'title VARCHAR,' +
+      'category VARCHAR,' +
+      'author VARCHAR,' +
+      'authorUrl VARCHAR,' +
+      'publishedOn DATE,' +
+      'body VARCHAR);',
       function() {
         console.log('Successfully set up the articles table.');
       }
