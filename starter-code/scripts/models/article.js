@@ -69,7 +69,7 @@
             webDB.execute(
               'SELECT * FROM articles', // <-----TODO: DONE query our table
               function(rows) {
-                // TODO:
+                // TODO:DONE
                 // 1 - Use Article.loadAll to process our rows,
                 // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
                 Article.loadAll(rows);
@@ -86,7 +86,7 @@
         {
           /* NOTE: this is an advanced admin option, so you will need to test
               out an individual query in the console */
-          'sql': '', // <---TODO: Delete an article instance from the database based on its id:
+          'sql': 'DELETE FROM articles WHERE id = 53;', // <---TODO: DONE Delete an article instance from the database based on its id:
           'data': [this.id]
         }
       ]
