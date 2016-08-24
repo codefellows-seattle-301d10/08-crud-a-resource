@@ -62,16 +62,16 @@
            1 - Use Article.loadAll to instanitate these rows,
            2 - Pass control to the view by invoking the next function that
                 was passed in to Article.fetchAll */
-          Article.loadAll();
+          Article.loadAll(rows);
           nextFunction();
         } else {
-          $.getJSON('/data/hackerIpsum.json', function(responseData) {
+          $.getJSON('data/hackerIpsum.json', function(responseData) {
             responseData.forEach(function(obj) {
               var article = new Article(obj); // This will instantiate an article instance based on each article object from our JSON.
               /* TODO - DONE :
                1 - 'insert' the newly-instantiated article in the DB:
              */
-              Article.all.push(article);
+              Article.allArticles.push(article);
               article.insertRecord();
 
             });
