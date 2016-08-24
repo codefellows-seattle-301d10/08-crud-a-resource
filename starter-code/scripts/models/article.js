@@ -58,7 +58,7 @@
 
 
   Article.fetchAll = function(nextFunction) {
-    Article.createTable();
+
     webDB.execute(
       'SELECT * FROM blogposts', // <-----TODO: fill these quotes to query our table.
       function(rows) {
@@ -76,16 +76,12 @@
               var article = new Article(obj);
               article.insertRecord();
 
-               // This will instantiate an article instance based on each article object from our JSON.
-              /* TODO:
-               1 - 'insert' the newly-instantiated article in the DB:
-             */
             });
             // Now get ALL the records out of the database:
             webDB.execute(
               'SELECT * FROM blogposts', // <-----TODO: query our table
               function(rows) {
-                Article.loadAll();
+                Article.loadAll(rows);
                 nextFunction();
                 // TODO: DONE
                 // 1 - Use Article.loadAll to process our rows,
@@ -95,6 +91,10 @@
         }
       });
   };
+  // This will instantiate an article instance based on each article object from our JSON.
+  /* TODO: DONE
+  1 - 'insert' the newly-instantiated article in the DB:
+  */
 
 
   Article.prototype.deleteRecord = function() {
@@ -155,6 +155,6 @@
   };
 
 // TODO: ensure that our table has been setup.
-
+  Article.createTable();
   module.Article = Article;
 })(window);
