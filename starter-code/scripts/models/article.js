@@ -82,7 +82,7 @@
                 // TODO - DONE:
                 // 1 - Use Article.loadAll to process our rows,
                 // 2 - Pass control to the view by calling the next function that was passed in to Article.fetchAll
-                Article.loadAll();
+                Article.loadAll(rows);
                 nextFunction();
               });
           });
